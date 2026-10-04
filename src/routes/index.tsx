@@ -46,7 +46,7 @@ function Home() {
     <AppShell>
       <div className="space-y-6 pt-2">
         <div>
-          <h1 className="text-3xl font-bold">Olá{firstName ? `, ${firstName}` : ""}! 👋</h1>
+          <h1 className="text-3xl font-bold">Olá{firstName ? `, ${firstName}` : ""}!</h1>
           <p className="mt-1 text-muted-foreground">Pronto para criar mais um orçamento profissional para seus clientes?</p>
         </div>
 
