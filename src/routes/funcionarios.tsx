@@ -158,7 +158,7 @@ function EmployeeForm({ initial, onDone }: { initial: Employee; onDone: () => vo
   const set = (k: keyof Employee, v: string) => setE((p) => ({ ...p, [k]: v }));
 
   async function save() {
-    if (!e.name.trim()) return toast.error("Informe o nome do funcionário.");
+    if (!e.name.trim()) { toast.error("Informe o nome do funcionário."); return; }
     setBusy(true);
     const payload = {
       name: e.name.trim().slice(0, 150),
@@ -172,7 +172,7 @@ function EmployeeForm({ initial, onDone }: { initial: Employee; onDone: () => vo
       ? await supabase.from("employees").update(payload).eq("id", e.id)
       : await supabase.from("employees").insert(payload);
     setBusy(false);
-    if (error) return toast.error("Não foi possível salvar. Tente de novo.");
+    if (error) { toast.error("Não foi possível salvar. Tente de novo."); return; }
     toast.success("Funcionário salvo!");
     onDone();
   }
