@@ -109,7 +109,7 @@ export function newQuoteData(defaultNotes: string): QuoteData {
 }
 
 export function serviceMeta(s: Pick<QuoteService, "type" | "customName">) {
-  const t = SERVICE_TYPES.find((x) => x.key === s.type) ?? SERVICE_TYPES[SERVICE_TYPES.length - 1];
+  const t = SERVICE_TYPES.find((x) => x.key === s.type) ?? SERVICE_TYPES[SERVICE_TYPES.length - 1]!;
   return { label: s.type === "outro" ? s.customName || "Outro serviço" : t.label, icon: t.icon };
 }
 

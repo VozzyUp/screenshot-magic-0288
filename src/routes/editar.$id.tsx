@@ -56,7 +56,7 @@ function move<T>(arr: T[], i: number, d: number) {
   const j = i + d;
   if (j < 0 || j >= arr.length) return arr;
   const a = [...arr];
-  [a[i], a[j]] = [a[j], a[i]];
+  [a[i], a[j]] = [a[j]!, a[i]!];
   return a;
 }
 
