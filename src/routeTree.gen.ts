@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EmpresaRouteImport } from './routes/empresa'
 import { Route as OrcamentosRouteImport } from './routes/orcamentos'
+import { Route as VerIdRouteImport } from './routes/ver.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +29,44 @@ const OrcamentosRoute = OrcamentosRouteImport.update({
   path: '/orcamentos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VerIdRoute = VerIdRouteImport.update({
+  id: '/ver/$id',
+  path: '/ver/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/empresa': typeof EmpresaRoute
   '/orcamentos': typeof OrcamentosRoute
+  '/ver/$id': typeof VerIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/empresa': typeof EmpresaRoute
   '/orcamentos': typeof OrcamentosRoute
+  '/ver/$id': typeof VerIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/empresa': typeof EmpresaRoute
   '/orcamentos': typeof OrcamentosRoute
+  '/ver/$id': typeof VerIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/empresa' | '/orcamentos'
+  fullPaths: '/' | '/empresa' | '/orcamentos' | '/ver/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/empresa' | '/orcamentos'
-  id: '__root__' | '/' | '/empresa' | '/orcamentos'
+  to: '/' | '/empresa' | '/orcamentos' | '/ver/$id'
+  id: '__root__' | '/' | '/empresa' | '/orcamentos' | '/ver/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EmpresaRoute: typeof EmpresaRoute
   OrcamentosRoute: typeof OrcamentosRoute
+  VerIdRoute: typeof VerIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +92,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrcamentosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ver/$id': {
+      id: '/ver/$id'
+      path: '/ver/$id'
+      fullPath: '/ver/$id'
+      preLoaderRoute: typeof VerIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EmpresaRoute: EmpresaRoute,
   OrcamentosRoute: OrcamentosRoute,
+  VerIdRoute: VerIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
