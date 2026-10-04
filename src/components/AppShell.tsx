@@ -8,6 +8,7 @@ import { createQuote } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import logo from "@/assets/logo-eletrica-santos.png.asset.json";
 
 const NAV = [
   { to: "/", label: "Início", icon: Home, exact: true },
@@ -47,14 +48,8 @@ export function AppShell({ children, title }: { children: ReactNode; title?: str
     <div className="min-h-screen md:flex">
       {/* Menu lateral (computador) */}
       <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r bg-card md:flex print:hidden">
-        <Link to="/" className="flex items-center gap-3 border-b px-5 py-5">
-          <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-            <FileText className="size-5" />
-          </span>
-          <span className="min-w-0">
-            <span className="block truncate font-bold">Orçamentos</span>
-            <span className="block truncate text-sm text-muted-foreground">Reformas & Reparos</span>
-          </span>
+        <Link to="/" className="block border-b px-5 py-4">
+          <img src={logo.url} alt="Elétrica Santos" className="h-16 w-full object-contain" />
         </Link>
         <div className="p-4">
           <button
@@ -95,11 +90,8 @@ export function AppShell({ children, title }: { children: ReactNode; title?: str
       {/* Conteúdo */}
       <div className="min-w-0 flex-1 pb-24 md:pb-8">
         <header className="sticky top-0 z-30 flex h-14 items-center border-b bg-card/90 px-4 backdrop-blur md:hidden print:hidden">
-          <Link to="/" className="flex items-center gap-2 font-bold">
-            <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <FileText className="size-4" />
-            </span>
-            Orçamentos
+          <Link to="/" className="flex items-center gap-2">
+            <img src={logo.url} alt="Elétrica Santos" className="h-8" />
           </Link>
           {title && <span className="ml-2 truncate text-muted-foreground">/ {title}</span>}
         </header>
