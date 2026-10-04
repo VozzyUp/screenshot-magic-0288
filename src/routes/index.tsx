@@ -40,7 +40,7 @@ function Home() {
     }
   }
 
-  const firstName = (user?.user_metadata?.name as string | undefined)?.split(" ")[0];
+  const firstName = (user?.user_metadata?.["name"] as string | undefined)?.split(" ")[0];
 
   return (
     <AppShell>

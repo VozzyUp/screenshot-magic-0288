@@ -26,7 +26,7 @@ export const Route = createFileRoute("/ver/$id")({
 function VerPage() {
   const { id } = Route.useParams();
   return (
-    <AppShell title="Ver orçamento" back>
+    <AppShell title="Ver orçamento">
       <Preview id={id} />
     </AppShell>
   );

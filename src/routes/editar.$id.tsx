@@ -44,7 +44,7 @@ export const Route = createFileRoute("/editar/$id")({
 function EditPage() {
   const { id } = Route.useParams();
   return (
-    <AppShell title="Orçamento" back>
+    <AppShell title="Orçamento">
       <Editor key={id} id={id} />
     </AppShell>
   );
