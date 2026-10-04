@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Plus, FolderOpen, Building2, Loader2 } from "lucide-react";
+import { Plus, FolderOpen, Building2, Users, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
 import { createQuote } from "@/lib/data";
