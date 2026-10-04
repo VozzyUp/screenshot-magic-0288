@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Plus, FolderOpen, Building2, Loader2 } from "lucide-react";
+import { Plus, FolderOpen, Building2, Users, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
 import { createQuote } from "@/lib/data";
@@ -63,6 +63,9 @@ function Home() {
         </Link>
         <Link to="/empresa" className="flex items-center justify-center gap-2 py-4 font-semibold text-primary">
           <Building2 className="size-5" /> Minha Empresa (logo, dados e PIX)
+        </Link>
+        <Link to="/funcionarios" className="flex items-center justify-center gap-2 py-2 font-semibold text-primary">
+          <Users className="size-5" /> Funcionários (lista para entrada na obra)
         </Link>
       </div>
     </AppShell>

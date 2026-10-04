@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { FileText, LogOut, Building2, Loader2 } from "lucide-react";
+import { FileText, LogOut, Building2, Loader2, Users } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth";
@@ -34,6 +34,11 @@ export function AppShell({ children, title, back }: { children: ReactNode; title
             <Button asChild variant="ghost" size="sm">
               <Link to="/empresa">
                 <Building2 /> <span className="hidden sm:inline">Minha Empresa</span>
+              </Link>
+            </Button>
+            <Button asChild variant="ghost" size="sm">
+              <Link to="/funcionarios">
+                <Users /> <span className="hidden sm:inline">Funcionários</span>
               </Link>
             </Button>
             <Button variant="ghost" size="sm" onClick={() => supabase.auth.signOut()} aria-label="Sair">

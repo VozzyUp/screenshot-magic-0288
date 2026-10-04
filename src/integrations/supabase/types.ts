@@ -56,6 +56,42 @@ export type Database = {
         }
         Relationships: []
       }
+      employees: {
+        Row: {
+          birth_date: string
+          cpf: string
+          created_at: string
+          id: string
+          name: string
+          phone: string
+          rg: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          birth_date?: string
+          cpf?: string
+          created_at?: string
+          id?: string
+          name?: string
+          phone?: string
+          rg?: string
+          role?: string
+          user_id?: string
+        }
+        Update: {
+          birth_date?: string
+          cpf?: string
+          created_at?: string
+          id?: string
+          name?: string
+          phone?: string
+          rg?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       quote_counters: {
         Row: {
           last: number
