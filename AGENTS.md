@@ -16,3 +16,4 @@
 - PDFs are rendered client-side from the QuoteDocument component via html2canvas-pro + jsPDF. Why: preview and PDF are identical.
 - Pages gate auth client-side through AppShell. Why: single-owner app, all data access goes through RLS.
 - App chrome is a left sidebar (desktop) + bottom nav (mobile) in AppShell; home (/) is a summary dashboard with month stats. Why: user chose this navigation layout over the previous simple header.
+- Hostinger source deliveries share navigation, icons, confirmation dialogs and styling through the PHP shell and shared assets. Why: each page must stay consistent without changing the original Lovable application.
