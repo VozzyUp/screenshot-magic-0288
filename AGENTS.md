@@ -15,3 +15,4 @@
 - Company logo is stored as a resized data URL in `companies.logo_url`. Why: avoids storage bucket policy and canvas CORS issues in PDF export.
 - PDFs are rendered client-side from the QuoteDocument component via html2canvas-pro + jsPDF. Why: preview and PDF are identical.
 - Pages gate auth client-side through AppShell. Why: single-owner app, all data access goes through RLS.
+- App chrome is a left sidebar (desktop) + bottom nav (mobile) in AppShell; home (/) is a summary dashboard with month stats. Why: user chose this navigation layout over the previous simple header.
