@@ -47,7 +47,7 @@ function resizeImage(file: File): Promise<string> {
 
 function EmpresaPage() {
   return (
-    <AppShell title="Minha Empresa" back>
+    <AppShell title="Minha Empresa">
       <CompanyForm />
     </AppShell>
   );

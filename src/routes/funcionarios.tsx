@@ -25,7 +25,7 @@ export const Route = createFileRoute("/funcionarios")({
     ],
   }),
   component: () => (
-    <AppShell title="Funcionários" back>
+    <AppShell title="Funcionários">
       <EmployeesPage />
     </AppShell>
   ),

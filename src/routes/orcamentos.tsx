@@ -43,7 +43,7 @@ const statusStyle: Record<string, string> = {
 
 function ListPage() {
   return (
-    <AppShell title="Meus orçamentos" back>
+    <AppShell title="Meus orçamentos">
       <List />
     </AppShell>
   );

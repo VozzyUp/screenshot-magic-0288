@@ -1,15 +1,37 @@
 import { useState, type ReactNode } from "react";
-import { Link } from "@tanstack/react-router";
-import { FileText, LogOut, Building2, Loader2, Users } from "lucide-react";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
+import { FileText, LogOut, Building2, Loader2, Users, Home, FolderOpen, Plus } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth";
+import { createQuote } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export function AppShell({ children, title, back }: { children: ReactNode; title?: string; back?: boolean }) {
+const NAV = [
+  { to: "/", label: "Início", icon: Home, exact: true },
+  { to: "/orcamentos", label: "Meus Orçamentos", icon: FolderOpen },
+  { to: "/empresa", label: "Minha Empresa", icon: Building2 },
+  { to: "/funcionarios", label: "Funcionários", icon: Users },
+] as const;
+
+export function AppShell({ children, title }: { children: ReactNode; title?: string }) {
   const { user, loading } = useAuth();
+  const navigate = useNavigate();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const [busy, setBusy] = useState(false);
+
+  async function novo() {
+    setBusy(true);
+    try {
+      const id = await createQuote();
+      navigate({ to: "/editar/$id", params: { id } });
+    } catch {
+      toast.error("Não foi possível criar o orçamento. Tente de novo.");
+      setBusy(false);
+    }
+  }
 
   if (loading)
     return (
@@ -19,35 +41,86 @@ export function AppShell({ children, title, back }: { children: ReactNode; title
     );
   if (!user) return <LoginScreen />;
 
+  const isActive = (to: string, exact?: boolean) => (exact ? pathname === to : pathname.startsWith(to));
+
   return (
-    <div className="min-h-screen pb-32">
-      <header className="sticky top-0 z-30 border-b bg-card/90 backdrop-blur print:hidden">
-        <div className="mx-auto flex h-16 max-w-4xl items-center gap-3 px-4">
-          <Link to="/" className="flex items-center gap-2 font-bold text-lg">
-            <span className="flex size-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <FileText className="size-5" />
-            </span>
-            {back ? "Início" : "Orçamentos"}
-          </Link>
-          {title && <span className="truncate text-muted-foreground">/ {title}</span>}
-          <div className="ml-auto flex items-center gap-1">
-            <Button asChild variant="ghost" size="sm">
-              <Link to="/empresa">
-                <Building2 /> <span className="hidden sm:inline">Minha Empresa</span>
-              </Link>
-            </Button>
-            <Button asChild variant="ghost" size="sm">
-              <Link to="/funcionarios">
-                <Users /> <span className="hidden sm:inline">Funcionários</span>
-              </Link>
-            </Button>
-            <Button variant="ghost" size="sm" onClick={() => supabase.auth.signOut()} aria-label="Sair">
-              <LogOut />
-            </Button>
-          </div>
+    <div className="min-h-screen md:flex">
+      {/* Menu lateral (computador) */}
+      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r bg-card md:flex print:hidden">
+        <Link to="/" className="flex items-center gap-3 border-b px-5 py-5">
+          <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+            <FileText className="size-5" />
+          </span>
+          <span className="min-w-0">
+            <span className="block truncate font-bold">Orçamentos</span>
+            <span className="block truncate text-sm text-muted-foreground">Reformas & Reparos</span>
+          </span>
+        </Link>
+        <div className="p-4">
+          <button
+            onClick={novo}
+            disabled={busy}
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3.5 text-base font-bold text-primary-foreground shadow-soft transition active:scale-[0.98] disabled:opacity-70"
+          >
+            {busy ? <Loader2 className="size-5 animate-spin" /> : <Plus className="size-5" />}
+            Novo Orçamento
+          </button>
         </div>
-      </header>
-      <main className="mx-auto max-w-4xl px-4 py-6">{children}</main>
+        <nav className="flex-1 space-y-1 px-3">
+          {NAV.map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              className={`flex items-center gap-3 rounded-xl px-4 py-3 text-base font-medium transition ${
+                isActive(item.to, "exact" in item && item.exact)
+                  ? "bg-accent font-bold text-accent-foreground"
+                  : "text-muted-foreground hover:bg-muted"
+              }`}
+            >
+              <item.icon className="size-5 shrink-0" />
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+        <div className="border-t p-3">
+          <button
+            onClick={() => supabase.auth.signOut()}
+            className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-base font-medium text-muted-foreground transition hover:bg-muted"
+          >
+            <LogOut className="size-5 shrink-0" /> Sair
+          </button>
+        </div>
+      </aside>
+
+      {/* Conteúdo */}
+      <div className="min-w-0 flex-1 pb-24 md:pb-8">
+        <header className="sticky top-0 z-30 flex h-14 items-center border-b bg-card/90 px-4 backdrop-blur md:hidden print:hidden">
+          <Link to="/" className="flex items-center gap-2 font-bold">
+            <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+              <FileText className="size-4" />
+            </span>
+            Orçamentos
+          </Link>
+          {title && <span className="ml-2 truncate text-muted-foreground">/ {title}</span>}
+        </header>
+        <main className="mx-auto max-w-5xl px-4 py-6 md:px-8">{children}</main>
+      </div>
+
+      {/* Menu inferior (celular) */}
+      <nav className="fixed inset-x-0 bottom-0 z-30 flex border-t bg-card md:hidden print:hidden">
+        {NAV.map((item) => (
+          <Link
+            key={item.to}
+            to={item.to}
+            className={`flex flex-1 flex-col items-center gap-1 py-2.5 text-xs font-medium ${
+              isActive(item.to, "exact" in item && item.exact) ? "text-primary" : "text-muted-foreground"
+            }`}
+          >
+            <item.icon className="size-6" />
+            {item.label === "Meus Orçamentos" ? "Orçamentos" : item.label === "Minha Empresa" ? "Empresa" : item.label}
+          </Link>
+        ))}
+      </nav>
     </div>
   );
 }

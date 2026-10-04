@@ -39,3 +39,18 @@ export async function createQuote(fromData?: QuoteData): Promise<string> {
   if (error) throw error;
   return row.id;
 }
+
+export async function monthStats(): Promise<{ count: number; total: number }> {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+  const { data, error } = await supabase
+    .from("quotes")
+    .select("total")
+    .gte("created_at", start);
+  if (error) throw error;
+  const rows = data ?? [];
+  return {
+    count: rows.length,
+    total: rows.reduce((s, r) => s + (Number(r.total) || 0), 0),
+  };
+}
