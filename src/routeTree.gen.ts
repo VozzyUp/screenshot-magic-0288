@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EmpresaRouteImport } from './routes/empresa'
+import { Route as FuncionariosRouteImport } from './routes/funcionarios'
 import { Route as OrcamentosRouteImport } from './routes/orcamentos'
 import { Route as EditarIdRouteImport } from './routes/editar.$id'
 import { Route as VerIdRouteImport } from './routes/ver.$id'
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 const EmpresaRoute = EmpresaRouteImport.update({
   id: '/empresa',
   path: '/empresa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FuncionariosRoute = FuncionariosRouteImport.update({
+  id: '/funcionarios',
+  path: '/funcionarios',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OrcamentosRoute = OrcamentosRouteImport.update({
@@ -44,6 +50,7 @@ const VerIdRoute = VerIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/empresa': typeof EmpresaRoute
+  '/funcionarios': typeof FuncionariosRoute
   '/orcamentos': typeof OrcamentosRoute
   '/editar/$id': typeof EditarIdRoute
   '/ver/$id': typeof VerIdRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/empresa': typeof EmpresaRoute
+  '/funcionarios': typeof FuncionariosRoute
   '/orcamentos': typeof OrcamentosRoute
   '/editar/$id': typeof EditarIdRoute
   '/ver/$id': typeof VerIdRoute
@@ -59,21 +67,42 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/empresa': typeof EmpresaRoute
+  '/funcionarios': typeof FuncionariosRoute
   '/orcamentos': typeof OrcamentosRoute
   '/editar/$id': typeof EditarIdRoute
   '/ver/$id': typeof VerIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/empresa' | '/orcamentos' | '/editar/$id' | '/ver/$id'
+  fullPaths:
+    | '/'
+    | '/empresa'
+    | '/funcionarios'
+    | '/orcamentos'
+    | '/editar/$id'
+    | '/ver/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/empresa' | '/orcamentos' | '/editar/$id' | '/ver/$id'
-  id: '__root__' | '/' | '/empresa' | '/orcamentos' | '/editar/$id' | '/ver/$id'
+  to:
+    | '/'
+    | '/empresa'
+    | '/funcionarios'
+    | '/orcamentos'
+    | '/editar/$id'
+    | '/ver/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/empresa'
+    | '/funcionarios'
+    | '/orcamentos'
+    | '/editar/$id'
+    | '/ver/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EmpresaRoute: typeof EmpresaRoute
+  FuncionariosRoute: typeof FuncionariosRoute
   OrcamentosRoute: typeof OrcamentosRoute
   EditarIdRoute: typeof EditarIdRoute
   VerIdRoute: typeof VerIdRoute
@@ -93,6 +122,13 @@ declare module '@tanstack/react-router' {
       path: '/empresa'
       fullPath: '/empresa'
       preLoaderRoute: typeof EmpresaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/funcionarios': {
+      id: '/funcionarios'
+      path: '/funcionarios'
+      fullPath: '/funcionarios'
+      preLoaderRoute: typeof FuncionariosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/orcamentos': {
@@ -122,6 +158,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EmpresaRoute: EmpresaRoute,
+  FuncionariosRoute: FuncionariosRoute,
   OrcamentosRoute: OrcamentosRoute,
   EditarIdRoute: EditarIdRoute,
   VerIdRoute: VerIdRoute,
