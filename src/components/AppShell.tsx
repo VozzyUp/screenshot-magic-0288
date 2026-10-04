@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { LogOut, Building2, Loader2, Users, Home, FolderOpen, Plus } from "lucide-react";
+import { FileText, LogOut, Building2, Loader2, Users, Home, FolderOpen, Plus } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth";
