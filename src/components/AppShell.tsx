@@ -49,7 +49,7 @@ export function AppShell({ children, title }: { children: ReactNode; title?: str
       {/* Menu lateral (computador) */}
       <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r bg-card md:flex print:hidden">
         <Link to="/" className="block border-b px-5 py-4">
-          <img src={logo.url} alt="Elétrica Santos" className="h-14 w-full object-contain" />
+          <img src={logo.url} alt="Elétrica Santos" className="h-16 w-full object-contain" />
         </Link>
         <div className="p-4">
           <button
