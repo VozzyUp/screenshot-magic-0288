@@ -14,13 +14,108 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      companies: {
+        Row: {
+          address: string
+          default_notes: string
+          document: string
+          email: string
+          logo_url: string | null
+          name: string
+          phone: string
+          pix: string
+          updated_at: string
+          user_id: string
+          website: string
+        }
+        Insert: {
+          address?: string
+          default_notes?: string
+          document?: string
+          email?: string
+          logo_url?: string | null
+          name?: string
+          phone?: string
+          pix?: string
+          updated_at?: string
+          user_id?: string
+          website?: string
+        }
+        Update: {
+          address?: string
+          default_notes?: string
+          document?: string
+          email?: string
+          logo_url?: string | null
+          name?: string
+          phone?: string
+          pix?: string
+          updated_at?: string
+          user_id?: string
+          website?: string
+        }
+        Relationships: []
+      }
+      quote_counters: {
+        Row: {
+          last: number
+          user_id: string
+          year: number
+        }
+        Insert: {
+          last?: number
+          user_id: string
+          year: number
+        }
+        Update: {
+          last?: number
+          user_id?: string
+          year?: number
+        }
+        Relationships: []
+      }
+      quotes: {
+        Row: {
+          client_name: string
+          created_at: string
+          data: Json
+          id: string
+          number: string
+          status: string
+          total: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          client_name?: string
+          created_at?: string
+          data?: Json
+          id?: string
+          number: string
+          status?: string
+          total?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          client_name?: string
+          created_at?: string
+          data?: Json
+          id?: string
+          number?: string
+          status?: string
+          total?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      next_quote_number: { Args: never; Returns: string }
     }
     Enums: {
       [_ in never]: never
